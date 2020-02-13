@@ -15,16 +15,16 @@ public class MainController {
 
     @FXML
     private Button orders_comm;
-
-    public void click(ActionEvent actionEvent) {
+    private Button file_choose_ord_k;
+    public void click_orders_comm() {
         orders_comm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String fxmlFile = "/fxml/orders_komm.fxml";
+                String fxmlFile = "/fxml/orders_comm.fxml";
                 FXMLLoader loader = new FXMLLoader();
                 Parent root = null;
                 try {
-                    root = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+                    root = loader.load(getClass().getResourceAsStream(fxmlFile));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -38,12 +38,68 @@ public class MainController {
 
     @FXML
     private Button time_corr;
+    public void click_time_corr() {
+        time_corr.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String fxmlFile = "/fxml/time_corr.fxml";
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = null;
+                try {
+                    root = loader.load(getClass().getResourceAsStream(fxmlFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage Window_time_corr = new Stage();
+                Window_time_corr.setTitle("Коррекция времени");
+                Window_time_corr.setScene(new Scene(root));
+                Window_time_corr.show();
+            }
+        });
+    }
 
     @FXML
-    private Button order_prise;
+    private Button orders_prise;
+    public void click_orders_prise() {
+        orders_prise.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String fxmlFile = "/fxml/orders_prise.fxml";
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = null;
+                try {
+                    root = loader.load(getClass().getResourceAsStream(fxmlFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage Window_orders_prise = new Stage();
+                Window_orders_prise.setTitle("Приказ на изменение оклада");
+                Window_orders_prise.setScene(new Scene(root));
+                Window_orders_prise.show();
+            }
+        });
+    }
 
     @FXML
-    private Button order_status;
-
+    private Button orders_status;
+    public void click_orders_status() {
+        orders_status.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String fxmlFile = "/fxml/orders_status.fxml";
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = null;
+                try {
+                    root = loader.load(getClass().getResourceAsStream(fxmlFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage Window_orders_status = new Stage();
+                Window_orders_status.setTitle("Приказ на изменение должности");
+                Window_orders_status.setScene(new Scene(root));
+                Window_orders_status.show();
+            }
+        });
+    }
 
 }
