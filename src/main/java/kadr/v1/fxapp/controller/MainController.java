@@ -7,15 +7,32 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class MainController {
 
+    private Desktop desktop = Desktop.getDesktop();
+    Stage Window_orders_comm = new Stage();
+
+    private void openFile(File file) {
+        try {
+            this.desktop.open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     @FXML
     private Button orders_comm;
-    private Button file_choose_ord_k;
     public void click_orders_comm() {
         orders_comm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -28,13 +45,30 @@ public class MainController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Stage Window_orders_comm = new Stage();
                 Window_orders_comm.setTitle("Приказы на командировки");
                 Window_orders_comm.setScene(new Scene(root));
                 Window_orders_comm.show();
+
             }
         });
     }
+
+    @FXML
+    private Button file_choose_ord_k;
+    @FXML
+    private TextField textField;
+    public void click_file_choose() {
+        final FileChooser fileChooser = new FileChooser();
+        file_choose_ord_k.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                File file = fileChooser.showOpenDialog(Window_orders_comm);
+                textField.setText(file.getAbsolutePath() + "\n");
+            }
+        });
+    }
+
+
 
     @FXML
     private Button time_corr;
