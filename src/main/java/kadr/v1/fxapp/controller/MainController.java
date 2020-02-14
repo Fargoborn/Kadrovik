@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class MainController {
 
+    String work_file = "";
     private Desktop desktop = Desktop.getDesktop();
     Stage Window_orders_comm = new Stage();
 
@@ -29,7 +30,9 @@ public class MainController {
         }
     }
 
-
+    public String workfile() {
+        return work_file;
+    }
 
     @FXML
     private Button orders_comm;
@@ -64,6 +67,7 @@ public class MainController {
             public void handle(ActionEvent event) {
                 File file = fileChooser.showOpenDialog(Window_orders_comm);
                 textField.setText(file.getAbsolutePath() + "\n");
+                work_file = file.getAbsolutePath() + "\n";
             }
         });
     }
