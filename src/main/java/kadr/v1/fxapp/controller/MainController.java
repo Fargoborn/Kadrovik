@@ -1,5 +1,7 @@
 package kadr.v1.fxapp.controller;
 
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,17 +10,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import kadr.v1.fxapp.comand_print.Mine;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 public class MainController {
 
     String work_file = "";
+
+    private Task workTask;
+
     private Desktop desktop = Desktop.getDesktop();
     Stage Window_orders_comm = new Stage();
 
@@ -66,8 +74,50 @@ public class MainController {
             @Override
             public void handle(ActionEvent event) {
                 File file = fileChooser.showOpenDialog(Window_orders_comm);
-                textField.setText(file.getAbsolutePath() + "\n");
-                work_file = file.getAbsolutePath() + "\n";
+                textField.setText(file.getAbsolutePath());
+                work_file = file.getAbsolutePath();
+            }
+        });
+    }
+
+    @FXML
+    private Button start_work_button;
+    @FXML
+    private ProgressBar progressBar;
+    public void click_start_work() {
+        start_work_button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Mine mine = new Mine();
+                mine.setworkfile(work_file);
+                workTask = new Task<Boolean>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        try {
+                            mine.print_com();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+                progressBar.setProgress(0);
+                progressBar.progressProperty().unbind();
+                progressBar.progressProperty().bind(workTask.progressProperty());
+
+                workTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
+                        new EventHandler<WorkerStateEvent>() {
+
+                            @Override
+                            public void handle(WorkerStateEvent t) {
+                                workTask.getValue();
+                            }
+                        });
+
+                // Start the Task.
+                new Thread(workTask).start();
             }
         });
     }

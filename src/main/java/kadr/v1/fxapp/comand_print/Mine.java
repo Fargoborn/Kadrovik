@@ -32,14 +32,12 @@ public class Mine {
         InputStream in = null;
         HSSFWorkbook wb = null;
 
-        final String FILENAME = filename;
-
         Files.walk(Paths.get("C:\\JAVA_EXEL\\ORDER_EXEL"))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .forEach(File::delete);
         try {
-            in = new FileInputStream(FILENAME);
+            in = new FileInputStream(filename);
             try {
                 wb = new HSSFWorkbook(in);
 
