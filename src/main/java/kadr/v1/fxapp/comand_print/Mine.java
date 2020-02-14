@@ -1,5 +1,6 @@
 package kadr.v1.fxapp.comand_print;
 
+import javafx.concurrent.Task;
 import kadr.v1.fxapp.controller.MainController;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -13,13 +14,11 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 
-public class Mine {
+public class Mine extends Task<ArrayList<Object>> {
+
 
     String filename = "";
     public String setworkfile(String workfile) {
@@ -27,7 +26,7 @@ public class Mine {
         return filename;
     }
 
-    public void print_com() throws IOException, ParseException {
+    public ArrayList<Object> print_com() throws IOException, ParseException {
 
         InputStream in = null;
         HSSFWorkbook wb = null;
@@ -1684,9 +1683,14 @@ public class Mine {
             System.out.println("ФИО =  " + entry.getKey() + " № приказа = " + entry.getValue());
             System.out.println();
         }
-
+        return grup_personArrayList;
         }
+
+    @Override
+    protected ArrayList<Object> call() throws Exception {
+        return null;
     }
+}
 
 
 

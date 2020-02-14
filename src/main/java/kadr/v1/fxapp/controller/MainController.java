@@ -90,34 +90,17 @@ public class MainController {
             public void handle(ActionEvent event) {
                 Mine mine = new Mine();
                 mine.setworkfile(work_file);
-                workTask = new Task<Boolean>() {
-                    @Override
-                    protected Boolean call() throws Exception {
-                        try {
-                            mine.print_com();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                };
+                try {
+                    mine.print_com();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 progressBar.setProgress(0);
                 progressBar.progressProperty().unbind();
-                progressBar.progressProperty().bind(workTask.progressProperty());
-
-                workTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
-                        new EventHandler<WorkerStateEvent>() {
-
-                            @Override
-                            public void handle(WorkerStateEvent t) {
-                                workTask.getValue();
-                            }
-                        });
-
-                // Start the Task.
-                new Thread(workTask).start();
+                progressBar.progressProperty().bind(mine.progressProperty());
             }
         });
     }
