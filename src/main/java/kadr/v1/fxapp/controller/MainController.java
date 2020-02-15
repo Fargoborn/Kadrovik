@@ -6,17 +6,24 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kadr.v1.fxapp.comand_print.Mine;
+import org.apache.poi.hssf.util.HSSFColor;
 
-import java.awt.*;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,16 +34,7 @@ public class MainController {
 
     private Task workTask;
 
-    private Desktop desktop = Desktop.getDesktop();
     Stage Window_orders_comm = new Stage();
-
-    private void openFile(File file) {
-        try {
-            this.desktop.open(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public String workfile() {
         return work_file;
@@ -70,6 +68,7 @@ public class MainController {
     private TextField textField;
     public void click_file_choose() {
         final FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\JAVA_EXEL"));
         file_choose_ord_k.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -83,7 +82,7 @@ public class MainController {
     @FXML
     private Button start_work_button;
     @FXML
-    private ProgressBar progressBar;
+    private TextField progressBar;
     public void click_start_work() {
         start_work_button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -97,10 +96,20 @@ public class MainController {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                progressBar.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+    }
 
-                progressBar.setProgress(0);
-                progressBar.progressProperty().unbind();
-                progressBar.progressProperty().bind(mine.progressProperty());
+    @FXML
+    private Button dir_comm_button;
+    public void  click_dir_comm() {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\JAVA_EXEL\\ORDER_EXEL"));
+        dir_comm_button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                List<File> files = fileChooser.showOpenMultipleDialog(Window_orders_comm);
             }
         });
     }

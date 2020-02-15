@@ -10,8 +10,8 @@
     <children>
       <Button fx:id="start_work_button" onAction="#click_start_work" layoutX="45.0" layoutY="93.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="511.0" text="Запустить обработку данных" />
       <Label layoutX="45.0" layoutY="30.0" prefHeight="18.0" prefWidth="155.0" text="Путь к файлу источнику" />
-      <ProgressBar fx:id="progressBar" layoutX="45.0" layoutY="150.0" prefHeight="25.0" prefWidth="511.0" progress="0.0" />
-      <Button layoutX="45.0" layoutY="199.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="511.0" text="Перейти к папке с формированными приказами" />
+      <TextField fx:id="progressBar" layoutX="45.0" layoutY="150.0" prefHeight="25.0" prefWidth="511.0"/>
+      <Button fx:id="dir_comm_button" onAction="#click_dir_comm" layoutX="45.0" layoutY="199.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="511.0" text="Перейти к папке с формированными приказами" />
       <TextField fx:id="textField" layoutX="45.0" layoutY="47.0" prefHeight="31.0" prefWidth="511.0" />
       <Button fx:id="file_choose_ord_k" onAction="#click_file_choose" layoutX="504.0" layoutY="47.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="52.0" text="..." />
     </children>
