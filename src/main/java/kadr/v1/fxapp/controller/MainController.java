@@ -1,7 +1,6 @@
 package kadr.v1.fxapp.controller;
 
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,18 +9,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kadr.v1.fxapp.comand_print.Mine;
-import org.apache.poi.hssf.util.HSSFColor;
 
 import java.util.List;
 import java.io.File;
@@ -31,8 +26,6 @@ import java.text.ParseException;
 public class MainController {
 
     String work_file = "";
-
-    private Task workTask;
 
     Stage Window_orders_comm = new Stage();
 
